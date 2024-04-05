@@ -31,7 +31,7 @@ class constant:
 
     T_Assessmentanswers = ['TAID', 'TA_Answers']
 
-    getBranch = ['key', 'label']
+    getBranch = ['key', 'label', 'mobile', 'address']
 
     genderDropdown = ['key', 'label']
 
@@ -308,7 +308,7 @@ class constant:
                           ,'6-9 Months','grossmotor69no','9-12 Months','grossmotor12no','12-18 Months',
                           'grossmotor1218no','18-24 Months','grossmotor1824no','24-30 Months','grossmotor2430no',
                           '30-36 Months','grossmotor3036no','36-42 Months','grossmotor3642no','42-48 Months',
-                          'grossmotor4248no','48-54 Months','grossmotor4854no','54-60 Months','grossmotor5460no']
+                          'grossmotor4248no','48-54 Months','grossmotor4854no','54-60 Months','grossmotor5460no', 'AddDate']
     
     viewFineMotorForm = ['ID','Appointment ID','0-3 Months','finemotor03no','3-6 Months','finemotor36no'
                           ,'6-9 Months','finemotor69no','9-12 Months','finemotor12no','12-18 Months',
@@ -351,3 +351,38 @@ class constant:
                           'finemotor1218no','18-24 Months','finemotor1824no','24-30 Months','finemotor2430no',
                           '30-36 Months','finemotor3036no','36-42 Months','finemotor3642no','42-48 Months',
                           'finemotor4248no','48-54 Months','finemotor4854no','54-60 Months','finemotor5460no']
+
+    ParentConcernReport = ['ID','Appointment Id','Comment']
+    
+    languageExposureReport = ['ID','Appointment Id','SpokenAtHome','FamilyModel','CommunicationMode']
+    
+    DiagnosticFormulationsReport = ['ID','Appointment Id','Comment','Type']
+    
+    ProvisionalDiagnosisFormReport = ['ID','Appointment Id','Comment']
+    
+    stutteringhistoryReport=['persistent','recovered','startedstuttering','phraserepititions','wordrepitions','Syllablerepitions',
+        'Blockslike','Interjections','demonstrated','phsyicaltension','frustrationabout','Complaints','childeverbeenteased','childeverdiscussed',
+        'childseemstostutter','stutterinyoursecondary','childstartedlearning','remarkableduringpregnancy','remarkableconditionatbirth',
+        'currenthealthmedicalconcerns','takinganymedications','allergies','developmentalconcerns','hearingtested','behavioursoccur',
+        'Inattentiveness','Hyperactivity','Nervousness','sensitivity','perfectionism','excitability','frustration','strongfears',
+        'excessiveneatness','excessiveshyness','lackofconfidence','competitiveness','speakfluentlyathome','speakfluentlyatschool',
+        'speakfluentlyinnewsituation','speakwithoutstutteringathome','speakwithoutstutteringatschool','speakwithoutstutteringinanycondition','stutteringaffectacademicperformance',
+        'participationinschool','interactionwithother','interactionwithfamily','willingnesstotalk','selfesteemorattitude','teachernoticedyourchild']
+    
+    viewOTNonEquilibriumCoordinationForm =['ID','Appointment Id','Fingertonose','Fingertotherapistfinger','Fingertofinger','Alternatnosefinger','Fingeropposition','Massgrasp',
+                                           'Pronationsupination','Reboundtest','Tappinghand','Tappingfeet','Pointingandpastpointing','Alternateheeltokneeheeltoe','Toetoexaminersfinger','Heeltoshin','Drawingacircle','Fixationorpositionholding']
+
+    viewStutteringAssessmentReport =['ID','Appointment Id','Behavioural assessment','Cognitive assessment','Impact educational participation',
+                                   'Likely to Achieve','Prognosis Effect']
+    
+    viewPragmaticSkillsReport = ['Id','InitiationSkills','RespondingSkills','MaintenanceSkills','TerminationSkills','Observations']
+    
+    DSMVADHDCriteriaReport = ['ID','Appointment Id','APersistent','BSeveral','CSeveral','Combinedpresentation','DThere','Ethesymptoms','Predominantly']
+    
+    SocialResponsivenessScaleReport = ['ID','Appointment Id','SCIRawScore','SCITscore','BehaviorsRawScore','BehaviorsTscore','socialAwarenessRawScore','socialAwarenessTscore','socialCognitionRawScore',
+        'socialCognitionTscore','socialCommunicationRawScore','socialCommunicationTscore','socialMotivationRawScore','socialMotivationTscore']
+    
+
+
+
+

@@ -226,7 +226,7 @@ def viewGrossMotorForm():
                                             Model.models.Application.M_CKGrossmotor.grossmotor54no.label('grossmotor4854no'),
                                             Model.models.Application.M_CKGrossmotor.grossmotor60yes.label('54-60 Months'),
                                             Model.models.Application.M_CKGrossmotor.grossmotor60no.label('grossmotor5460no'),
-                                            
+                                            Model.models.Application.M_CKGrossmotor.AddDate.label('AddDate'),
                                                 ).filter_by(M_Patient_MPID=pid,IsActive=1,IsDeleted=0
                                 ).order_by(Model.models.Application.M_CKGrossmotor.CKGID.desc()).all())
 
@@ -1780,4 +1780,17 @@ def viewSocialSkillsForm():
         return jsonify({'err':str(e)})
     finally:
         session.close()              
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

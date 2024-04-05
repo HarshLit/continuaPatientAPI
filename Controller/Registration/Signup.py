@@ -36,7 +36,10 @@ def signUp():
                 Email = request_json.get('email')  #'vipulvict@gmail.com' #
                 #TermsConds = request_json.get('termsConds') #'Yes' #
                 Password = request_json.get('password') #'V!pul@4812' #
-                
+                mobileNoCountryCode = request_json.get('mobileNoCountryCode')
+                tokenFCM = request_json.get('tokenFCM')
+
+
                 if(Mobile !='' and Mobile!=None):
                     # reg = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,20}$"
                     # pat = re.compile(reg)
@@ -59,6 +62,8 @@ def signUp():
                         Insert.MPD_AddDate = datetime.datetime.now()
                         Insert.MPD_AddIP = request.remote_addr
                         Insert.MPD_User = 0
+                        Insert.MPD_MobNoCountryCode = mobileNoCountryCode
+                        Insert.MPD_TokenFCM = tokenFCM
                         session.add(Insert)
                         session.commit()
                         session.close()

@@ -1534,9 +1534,10 @@ class Application:
     
     class M_PragmaticSkills(Connection.const.Connect.Base):
         __tablename__='m_pragmaticskills'
-        MSEID=sqlalchemy.Column(sqlalchemy.Integer,sqlalchemy.Sequence(
-            'M_PragmaticSkills_MSEID'),primary_key=True)
+        MVEFID=sqlalchemy.Column(sqlalchemy.Integer,sqlalchemy.Sequence(
+            'M_PragmaticSkills_MVEFID'),primary_key=True)
         M_Patient_MPID= sqlalchemy.Column(sqlalchemy.Integer)
+        M_AppointmentID = sqlalchemy.Column(sqlalchemy.Integer)
         MPS_InitiationSkills= sqlalchemy.Column(sqlalchemy.String(200))
         MPS_RespondingSkills= sqlalchemy.Column(sqlalchemy.String(200))
         MPS_MaintenanceSkills= sqlalchemy.Column(sqlalchemy.String(200))
@@ -1910,8 +1911,8 @@ class Application:
 
     class M_PosturalSystemCOM(Connection.const.Connect.Base):
         __tablename__='m_posturalsystemcom'
-        MPSBID=sqlalchemy.Column(sqlalchemy.Integer,sqlalchemy.Sequence(
-            'm_posturalsystemcom_MPSBID'),primary_key=True)
+        MPSCID=sqlalchemy.Column(sqlalchemy.Integer,sqlalchemy.Sequence(
+            'm_posturalsystemcom_MPSCID'),primary_key=True)
         M_Patient_MPID= sqlalchemy.Column(sqlalchemy.Integer)
         M_AppointmentID = sqlalchemy.Column(sqlalchemy.Integer)
         MPSC_CenterofMass= sqlalchemy.Column(sqlalchemy.String(50))
@@ -2024,8 +2025,8 @@ class Application:
 
     class M_PTNeurometerSystem(Connection.const.Connect.Base):
         __tablename__='m_ptneurometersystem'
-        MPSBID=sqlalchemy.Column(sqlalchemy.Integer,sqlalchemy.Sequence(
-            'm_ptneurometersystem_MPSBID'),primary_key=True)
+        MNSID=sqlalchemy.Column(sqlalchemy.Integer,sqlalchemy.Sequence(
+            'm_ptneurometersystem_MNSID'),primary_key=True)
         M_Patient_MPID= sqlalchemy.Column(sqlalchemy.Integer)
         M_AppointmentID = sqlalchemy.Column(sqlalchemy.Integer)
         MNS_Initiation= sqlalchemy.Column(sqlalchemy.Integer)
@@ -4014,6 +4015,8 @@ class Application:
         MPD_User= sqlalchemy.Column(sqlalchemy.Integer)
         MPD_Password= sqlalchemy.Column(sqlalchemy.String(100))
         MPD_hashedPassword= sqlalchemy.Column(sqlalchemy.String(500))
+        MPD_MobNoCountryCode= sqlalchemy.Column(sqlalchemy.String(500))
+        MPD_TokenFCM= sqlalchemy.Column(sqlalchemy.String(500))
 
         MPD_AddUser = sqlalchemy.Column(sqlalchemy.Integer)
         MPD_AddDate = sqlalchemy.Column(
@@ -5761,7 +5764,69 @@ class Application:
 
     Connection.const.createTable()
 
+    
+    class M_DSMVADHDCriteria(Connection.const.Connect.Base):
+        __tablename__='m_dsmvadhdcriteria'
+        MDID=sqlalchemy.Column(sqlalchemy.Integer,sqlalchemy.Sequence(
+            'm_dsmvadhdcriteria_MDID'),primary_key=True)
+        MI_AppointmentId = sqlalchemy.Column(sqlalchemy.Integer)
+        M_Branch_MBID= sqlalchemy.Column(sqlalchemy.Integer)
+        M_Patient_MPID= sqlalchemy.Column(sqlalchemy.Integer)
 
+        APersistent= sqlalchemy.Column(sqlalchemy.String(250))
+        BSeveral= sqlalchemy.Column(sqlalchemy.String(250))
+        CSeveral= sqlalchemy.Column(sqlalchemy.String(250))
+        Combinedpresentation= sqlalchemy.Column(sqlalchemy.String(250))
+        DThere= sqlalchemy.Column(sqlalchemy.String(250))
+        Ethesymptoms= sqlalchemy.Column(sqlalchemy.String(250))
+        Predominantly= sqlalchemy.Column(sqlalchemy.String(250))
+        
+        AddUser = sqlalchemy.Column(sqlalchemy.Integer)
+        AddDate = sqlalchemy.Column(
+            sqlalchemy.DateTime, default=datetime.datetime.now)
+        AddIP = sqlalchemy.Column(sqlalchemy.String(100))
+        ModUser = sqlalchemy.Column(sqlalchemy.Integer)
+        ModDate = sqlalchemy.Column(sqlalchemy.DateTime)
+        IsActive = sqlalchemy.Column(
+            sqlalchemy.Boolean, unique=False, default=1)
+        IsDeleted = sqlalchemy.Column(
+            sqlalchemy.Boolean, unique=False, default=0)
+
+    Connection.const.createTable()
+    
+    class M_SocialResponsivenessScale(Connection.const.Connect.Base):
+        __tablename__='m_socialresponsivenessscale'
+        MSID=sqlalchemy.Column(sqlalchemy.Integer,sqlalchemy.Sequence(
+            'm_socialresponsivenessscale_MSID'),primary_key=True)
+        MI_AppointmentId = sqlalchemy.Column(sqlalchemy.Integer)
+        M_Branch_MBID= sqlalchemy.Column(sqlalchemy.Integer)
+        M_Patient_MPID= sqlalchemy.Column(sqlalchemy.Integer)
+
+        SCIRawScore= sqlalchemy.Column(sqlalchemy.String(250))
+        SCITscore= sqlalchemy.Column(sqlalchemy.String(250))
+        BehaviorsRawScore= sqlalchemy.Column(sqlalchemy.String(250))
+        BehaviorsTscore= sqlalchemy.Column(sqlalchemy.String(250))
+        socialAwarenessRawScore= sqlalchemy.Column(sqlalchemy.String(250))
+        socialAwarenessTscore= sqlalchemy.Column(sqlalchemy.String(250))
+        socialCognitionRawScore= sqlalchemy.Column(sqlalchemy.String(250))
+        socialCognitionTscore= sqlalchemy.Column(sqlalchemy.String(250))
+        socialCommunicationRawScore= sqlalchemy.Column(sqlalchemy.String(250))
+        socialCommunicationTscore= sqlalchemy.Column(sqlalchemy.String(250))
+        socialMotivationRawScore= sqlalchemy.Column(sqlalchemy.String(250))
+        socialMotivationTscore= sqlalchemy.Column(sqlalchemy.String(250))
+        
+        AddUser = sqlalchemy.Column(sqlalchemy.Integer)
+        AddDate = sqlalchemy.Column(
+            sqlalchemy.DateTime, default=datetime.datetime.now)
+        AddIP = sqlalchemy.Column(sqlalchemy.String(100))
+        ModUser = sqlalchemy.Column(sqlalchemy.Integer)
+        ModDate = sqlalchemy.Column(sqlalchemy.DateTime)
+        IsActive = sqlalchemy.Column(
+            sqlalchemy.Boolean, unique=False, default=1)
+        IsDeleted = sqlalchemy.Column(
+            sqlalchemy.Boolean, unique=False, default=0)
+
+    Connection.const.createTable()
 
 
 

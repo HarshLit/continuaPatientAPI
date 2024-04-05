@@ -824,7 +824,31 @@ def updateChild():
     finally:
         session.close()
 
-
-
-
-
+@FamilyDtls_Blueprint.route('/updateFcmToken', methods=['POST','GET'])
+def updateFcmToken():
+    session = Session()
+    try:
+        if(flask.request.method == 'POST'):
+            RequestIp = hashlib.md5((request.remote_addr).encode())
+            RequestIp = RequestIp.hexdigest()
+            #print(RequestIp)
+            
+            request_json = request.get_json() #'Vipul'#
+            if(request_json!='' and request_json!=None):
+                PID =request_json.get('PID') # 8544388789 #
+                PatientId=Common_Function.CommonFun.decryptString(PID)
+                tokenFcm = request_json.get('tokenFcm') # 'Vipul Kumar' #
+                Insert = session.query(Model.models.Application.M_PatientsDtl).get(PatientId)
+                Insert.MPD_TokenFCM = tokenFcm
+                session.commit()
+                session.close()       
+                return jsonify({'error':'Token updated successfully'}),201 
+            else:
+                return jsonify({'error':'JSON not available'}),400
+            
+        else:
+            return jsonify({'error':'Method is not allowed'}),405
+    except Exception as identifier:
+        Logger.error(identifier)
+    finally:
+        session.close()

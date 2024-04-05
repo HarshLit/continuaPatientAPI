@@ -128,11 +128,16 @@ def getBranch():
         getBranch= Common_Function.CommonFun.convertToJson(
                 Constant.constant.constant.getBranch,
                 session.query(Model.models.Application.M_Branch.MBID.label('key'),
-                            Model.models.Application.M_Branch.MB_Name.label('label')
+                            Model.models.Application.M_Branch.MB_Name.label('label'),
+                            Model.models.Application.M_Branch.MB_Mobile.label('mobile'),
+                            Model.models.Application.M_Branch.MB_Address.label('address')
+                            # Model.models.Application.M_Branch.MB_Latitude.label('lat'),
+                            # Model.models.Application.M_Branch.MB_Longitude.label('long')
                             ).filter_by(MB_IsActive=1,MB_IsDeleted=0).order_by(Model.models.Application.M_Branch.MB_Name).all()
                         )
         session.commit()
         return jsonify(result=getBranch),200
     except Exception as identifier:
+
         print('No parameter is passed.')
      
