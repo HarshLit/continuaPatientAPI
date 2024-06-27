@@ -889,3 +889,60 @@ def getPrescriptionDtl():
         
         
         
+@Appointments_Blueprint.route('/getAppointmentDetails', methods=['POST'])
+def get_appointment_details():
+    try:
+        if 'Authorization' in request.headers:
+            token = request.headers.get('Authorization')
+            
+            if not token:
+                return jsonify({'MSG': 'Token is missing'})
+            
+            data = Common_Function.CommonFun.verifytoken(token)
+            if data:
+                session = Session()
+                request_json = request.get_json(force=True)
+                
+                # Get filter parameters
+                doctor_id = request_json.get('doctorId')
+                date = request_json.get('date')
+                branch_id = request_json.get('branchId')
+                
+                # Build the query
+                queryresult = Common_Function.CommonFun.convertToJson(
+                    Constant.constant.constant.getAppointmentDtl,
+                    session.query(
+                    Model.models.Application.M_Appointment.M_Patient_MPID.label('patientId'),
+                    Model.models.Application.M_Patient.MP_Name.label('patientName'),
+                    Model.models.Application.M_Appointment.MP_Status.label('status'),
+                    Model.models.Application.M_Appointment.MAID.label('consultId'),
+                    Model.models.Application.M_DoctorDetails.MDD_FirstName.label('doctorName'),
+                    Model.models.Application.M_DoctorDetails.MDDID.label('doctorId'),
+                    Model.models.Application.M_Appointment.MA_Time.label('visitTimeFrom'),
+                    Model.models.Application.M_Appointment.MA_Time.label('visitTimeTo'),
+                    sqlalchemy.func.date_format(Model.models.Application.M_Appointment.MA_Date, '%Y-%m-%d').label('date'),
+                    Model.models.Application.M_Appointment.MP_AppointmentType.label('mode')
+                ).join(
+                    Model.models.Application.M_Patient, Model.models.Application.M_Appointment.M_Patient_MPID == Model.models.Application.M_Patient.MPID
+                ).join(
+                    Model.models.Application.M_DoctorDetails, Model.models.Application.M_Appointment.M_DoctorDetails_MDDID == Model.models.Application.M_DoctorDetails.MDDID
+                )
+                )
+                # Apply filters
+                if doctor_id:
+                    queryresult = queryresult.filter(Model.models.Application.M_Appointment.M_DoctorDetails_MDDID == doctor_id)
+                if date:
+                    queryresult = queryresult.filter(sqlalchemy.func.date_format(Model.models.Application.M_Appointment.MA_Date) == date)
+                if branch_id:
+                    queryresult = queryresult.filter(Model.models.Application.M_Appointment.M_Branch_MBID == branch_id)
+                
+                session.commit()
+                return jsonify(result=queryresult)
+            else:
+                return jsonify({'err': 'Token is expired'})
+        else:
+            return jsonify({'err': 'Please Login'})
+    except Exception as e:
+        return jsonify({'err': str(e)})
+    finally:
+        session.close()
