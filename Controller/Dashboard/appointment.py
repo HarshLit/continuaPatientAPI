@@ -912,32 +912,35 @@ def get_appointment_details():
                 queryresult = Common_Function.CommonFun.convertToJson(
                     Constant.constant.constant.getAppointmentDtl,
                     session.query(
-                    Model.models.Application.M_Appointment.M_Patient_MPID.label('patientId'),
-                    Model.models.Application.M_Patient.MP_Name.label('patientName'),
-                    Model.models.Application.M_Appointment.MP_Status.label('status'),
-                    Model.models.Application.M_Appointment.MAID.label('consultId'),
-                    Model.models.Application.M_DoctorDetails.MDD_FirstName.label('doctorName'),
-                    Model.models.Application.M_DoctorDetails.MDDID.label('doctorId'),
-                    Model.models.Application.M_Appointment.MA_Time.label('visitTimeFrom'),
-                    Model.models.Application.M_Appointment.MA_Time.label('visitTimeTo'),
-                    sqlalchemy.func.date_format(Model.models.Application.M_Appointment.MA_Date, '%Y-%m-%d').label('date'),
-                    Model.models.Application.M_Appointment.MP_AppointmentType.label('mode')
-                ).join(
-                    Model.models.Application.M_Patient, Model.models.Application.M_Appointment.M_Patient_MPID == Model.models.Application.M_Patient.MPID
-                ).join(
-                    Model.models.Application.M_DoctorDetails, Model.models.Application.M_Appointment.M_DoctorDetails_MDDID == Model.models.Application.M_DoctorDetails.MDDID
-                )
+                        Model.models.Application.M_Appointment.M_Patient_MPID.label('patientId'),
+                        Model.models.Application.M_Patient.MP_Name.label('patientName'),
+                        Model.models.Application.M_Appointment.MP_Status.label('status'),
+                        Model.models.Application.M_Appointment.MAID.label('consultId'),
+                        Model.models.Application.M_DoctorDetails.MDD_FirstName.label('doctorName'),
+                        Model.models.Application.M_DoctorDetails.MDDID.label('doctorId'),
+                        Model.models.Application.M_Appointment.MA_Time.label('visitTimeFrom'),
+                        Model.models.Application.M_Appointment.MA_Time.label('visitTimeTo'),
+                        sqlalchemy.func.date_format(Model.models.Application.M_Appointment.MA_Date, '%Y-%m-%d').label('date'),
+                        Model.models.Application.M_Appointment.MP_AppointmentType.label('mode')
+                    ).join(
+                        Model.models.Application.M_Patient, Model.models.Application.M_Appointment.M_Patient_MPID == Model.models.Application.M_Patient.MPID
+                    ).join(
+                        Model.models.Application.M_DoctorDetails, Model.models.Application.M_Appointment.M_DoctorDetails_MDDID == Model.models.Application.M_DoctorDetails.MDDID
+                    ).filter(Model.models.Application.M_Appointment.MP_IsActive == 1, Model.models.Application.M_Appointment.MP_IsDeleted == 0)
                 )
                 # Apply filters
                 if doctor_id:
                     queryresult = queryresult.filter(Model.models.Application.M_Appointment.M_DoctorDetails_MDDID == doctor_id)
                 if date:
-                    queryresult = queryresult.filter(sqlalchemy.func.date_format(Model.models.Application.M_Appointment.MA_Date) == date)
+                    queryresult = queryresult.filter(sqlalchemy.func.date_format(Model.models.Application.M_Appointment.MA_Date, '%Y-%m-%d') == date)
                 if branch_id:
                     queryresult = queryresult.filter(Model.models.Application.M_Appointment.M_Branch_MBID == branch_id)
                 
+                # Execute the query and get the results
+                appointments = queryresult.all()
+                
                 session.commit()
-                return jsonify(result=queryresult)
+                return jsonify(result=appointments)
             else:
                 return jsonify({'err': 'Token is expired'})
         else:
