@@ -382,7 +382,4 @@ class constant:
     SocialResponsivenessScaleReport = ['ID','Appointment Id','SCIRawScore','SCITscore','BehaviorsRawScore','BehaviorsTscore','socialAwarenessRawScore','socialAwarenessTscore','socialCognitionRawScore',
         'socialCognitionTscore','socialCommunicationRawScore','socialCommunicationTscore','socialMotivationRawScore','socialMotivationTscore']
     
-
-
-
-
+    getAppointmentDtl = ['patientId', 'patientName', 'reasonForVisit', 'status', 'consultId', 'doctorName', 'doctorId', 'visitTimeFrom', 'visitTimeTo', 'date', 'mode']

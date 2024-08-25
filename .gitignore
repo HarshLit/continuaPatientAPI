@@ -16,3 +16,7 @@ Connection/__pycache__
 Common_Function/__pycache__
 Controller/AssessmentForms/__pycache__
 __pycache__
+bin
+lib
+run.py
+.aider*
